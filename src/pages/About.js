@@ -36,7 +36,7 @@ export default function About() {
   return (
     <div >
      {!claim && (
-      <div class="flex justify-center ">
+      <div class="bg-gray-100 flex justify-center ">
   <div class="block p-6 rounded-lg shadow-lg bg-white hidden md:block ">
     <h5 class="flex justify-center text-gray-900 text-xl  font-medium mb-2 ">Assaigned Tasks</h5>
     <div class="flex flex-col">
@@ -50,7 +50,7 @@ export default function About() {
                 #
               </th>
               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                First
+                name
               </th>
               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Last
@@ -59,7 +59,7 @@ export default function About() {
                 Email
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Claim
+                Open
                 </th>
 
             </tr>
@@ -70,13 +70,13 @@ export default function About() {
                 return <tr class="border-b">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{data.id}</td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {data.first_name}
+                {data.name}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                 {data.last_name}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {data.email}
+                {data.priority}
                 </td>
                <td>
                <div class="flex space-x-2 justify-center">
@@ -109,7 +109,7 @@ export default function About() {
   {data?.map((data,i)=>
             {
   
-   return <div class="bg-blue-200 space-y-3 p-4 rounded-lg shadow">
+   return <div class="bg-white space-y-3 p-4 rounded-lg shadow">
     <div class="flex items-center space-x-2 text-sm">
       <div class="text-sm font-bold">Id :</div>{data.id}
       <div class="text-sm font-bold" >First :</div>{data.first_name}
