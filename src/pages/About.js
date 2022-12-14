@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useAxios } from "use-axios-client";
+import Alert from '../components/Alert';
+
 import ClaimTask from './ClaimTask';
 export default function About() {
   const[data,setData]=useState([]);
@@ -9,15 +10,12 @@ export default function About() {
   useEffect(()=>{
     // https://reqres.in/api/users?page=2
     // http://localhost:9090/engine-rest/task?assignee=demo
-    axios.get('https://reqres.in/api/users?page=1', {
-      headers: {'Access-Control-Allow-Origin':'https://localhost:3000/',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'X-PINGOTHER, Content-Type',
-      'Access-Control-Max-Age': '86400'}
+    axios.get('http://localhost:8085/engine-rest/task', {
+      
     })
       .then((resp) => {
-        console.dir(resp);
-        setData(resp.data.data);
+        console.log(resp);
+        setData(resp.data);
 
       })
       .catch(err => {
@@ -35,8 +33,10 @@ export default function About() {
  
   return (
     <div >
+     <Alert color="red" msg="ok"/>
      {!claim && (
       <div class="bg-gray-100 flex justify-center ">
+         
   <div class="block p-6 rounded-lg shadow-lg bg-white hidden md:block ">
     <h5 class="flex justify-center text-gray-900 text-xl  font-medium mb-2 ">Assaigned Tasks</h5>
     <div class="flex flex-col">
@@ -50,13 +50,13 @@ export default function About() {
                 #
               </th>
               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                name
+                Name
               </th>
               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Last
+                Assaignee
               </th>
               <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Email
+                Priority
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Open
@@ -73,7 +73,7 @@ export default function About() {
                 {data.name}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {data.last_name}
+                {data.assignee}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                 {data.priority}

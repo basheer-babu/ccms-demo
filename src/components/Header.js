@@ -1,8 +1,11 @@
 import React from 'react';
 import {Outlet, Link} from "react-router-dom";
+import NavBar from './NavBar';
 
 const Header = () => (
- <><header className="bg-gray-200 p-6">
+ <>
+ <NavBar/>
+ {/* <header className="bg-gray-200 p-6">
     <div className="flex items-center justify-between flex-wrap">
       <div className="block">
         <Link to="/"><span className="font-semibold text-xl tracking-tight text-gray-800">CCMS</span></Link>
@@ -15,8 +18,9 @@ const Header = () => (
       </nav>
       
     </div>
-  </header>
+  </header> */}
   <Outlet/>
+  
   </> 
 );
 export default Header;

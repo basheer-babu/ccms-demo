@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contacts from './pages/Contacts';
 import ErrorPage from './pages/ErrorPage';
+import Tab from './components/Tab';
 function App() {
   return <BrowserRouter>
   <Routes>
@@ -13,7 +14,7 @@ function App() {
     <Route path="/" element={<Header/>}>
         <Route index element={<Home/>}/>  
         <Route path='/about' element={<About/>}/>
-        <Route path='/contact' element={<Contacts/>}/>
+        <Route path='/contact' element={<Tab/>}/>
        
         <Route path='*' element={<ErrorPage/>}/>
 
