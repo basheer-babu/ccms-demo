@@ -5,18 +5,21 @@ import Alert from "../components/Alert";
 export default function CompleteTask(props) {
 
     const [name, setname] = useState('')
-    const [age, setage] = useState('')
+    const [phone, setphone] = useState('')
     const [courtId, setcourtId] = useState('')
     const [adhar, setAdhar] = useState('')
     const [email, setEmail] = useState('')
+    const [customer, setcustomer] = useState('')
     const [comment, setComment] = useState('')
+    const [checkercomment, setcheckercomment] = useState('')
+    const [accept, setaccept] = useState('')
 
-
+  const completeBody = { "variables": { "Name": { "value": name }, "Phone": { "value": phone }, "CourtId": { "value": courtId }, "Customer": { "value": customer }, "Comment": { "value": comment }, "checkercomment": { "value": checkercomment }, "accept": { "value": accept }}}
 const [alertFlag, setAlertFlag] = useState("");
     const claimTask= (async(e)=>{
         e.preventDefault();
         setAlertFlag("");
-      await axios.post('http://localhost:8085/engine-rest/task/'+props.taskId+'/claim', {"userId":"demo"})
+      await axios.post('http://localhost:8085/engine-rest/task/'+props.taskId+'/claim', {"userId":"u"})
        .then((resp) => {
         console.log(resp);
         setAlertFlag("suc");
@@ -36,7 +39,7 @@ const [alertFlag, setAlertFlag] = useState("");
         e.preventDefault();
       
         setAlertFlag("");
-        await axios.post('http://localhost:8085/engine-rest/task/'+props.taskId+'/complete', {"variables":{"money":{"value":"100"},"country":{"value":"india"}}})
+        await axios.post('http://localhost:8085/engine-rest/task/'+props.taskId+'/complete', completeBody)
         .then((resp) => {
             console.log(resp);
             setAlertFlag("suc");
@@ -81,17 +84,17 @@ const [alertFlag, setAlertFlag] = useState("");
             <input type="text" value={name} onChange={e => setname(e.target.value)} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required/>
         </div>
         <div>
-            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
-            <input type="text" value={age} onChange={e => setage(e.target.value)} id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required/>
+            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">phone</label>
+            <input type="text" value={phone} onChange={e => setphone(e.target.value)} id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required/>
         </div>
         <div>
             <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Court Id</label>
             <input type="text" value={courtId} onChange={e => setcourtId(e.target.value)} id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123" required/>
         </div>  
-        <div>
+        {/* <div>
             <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adhar No</label>
             <input type="text" value={adhar} onChange={e => setAdhar(e.target.value)} id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123-45-678" required />
-        </div>
+        </div> */}
         <div >
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
         <input type="email" value={email} onChange={e => setEmail(e.target.value)} id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required />
@@ -99,8 +102,21 @@ const [alertFlag, setAlertFlag] = useState("");
         <div>
             <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comment</label>
             <input type="text" value={comment} onChange={e => setComment(e.target.value)} id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required/>
+              </div>
+              <div>
+            <label for="first_name"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Customer</label>
+            <input type="text" value={customer} onChange={e => setcustomer(e.target.value)} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="yes/no" required/>
+              </div>
+              <div>
+            <label for="first_name"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Checker Comment</label>
+            <input type="text" value={checkercomment} onChange={e => setcheckercomment(e.target.value)} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="yes/no" required/>
+        </div> <div>
+            <label for="first_name"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Accept</label>
+            <input type="text" value={accept} onChange={e => setaccept(e.target.value)} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="yes/no" required/>
         </div>
-    </div>
+            </div>
+            
+            
   
     <button type="submit" onClick={event => CompleteTaskFun(event)} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
 </form>
