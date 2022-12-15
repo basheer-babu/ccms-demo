@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTable, useFilters, useGlobalFilter, useAsyncDebounce, useSortBy, usePagination } from 'react-table'
 import { ChevronDoubleLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleRightIcon } from '@heroicons/react/solid'
 import { Button, PageButton } from '../shared/Button'
 import { classNames } from '../shared/Utils'
 import { SortIcon, SortUpIcon, SortDownIcon } from '../shared/Icons'
+import CompleteTask from '../pages/CompleteTask'
+
+
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -92,14 +95,19 @@ export function StatusPill({ value }) {
   );
 };
 
+
+
+
 export function PlayPill({ value }) {
   const status = value ? value.toLowerCase() : "unknown";
 
   return (
+    
     <span>
+      <button >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#054ef7" className="w-6 h-6">
   <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
-</svg>
+</svg></button>
 
 <div className="text-sm text-gray-400">{status}</div>
     </span>
@@ -124,6 +132,10 @@ export function AvatarCell({ value, column, row }) {
 }
 
 function Table({ columns, data }) {
+
+  const [dataId,setDataId]=useState("");
+  const [assaign,setAssaign]=useState("");
+  const [secCheck,setSecCheck]=useState(false);
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -157,8 +169,20 @@ function Table({ columns, data }) {
   )
 
   // Render the UI for your table
+
+  const claimTask=((e,dataId, Assign)=>{
+    e.preventDefault();
+   setDataId(dataId);
+   setSecCheck(true);
+   setAssaign(Assign);
+   console.info("dataId",dataId)
+   
+  });
+
   return (
-    <>
+    <div>
+    {!secCheck && (
+      <div>
       <div className="sm:flex sm:gap-x-2">
         <GlobalFilter
           preGlobalFilteredRows={preGlobalFilteredRows}
@@ -175,7 +199,7 @@ function Table({ columns, data }) {
           )
         )}
       </div>
-      {/* table */}
+    {/* table */}
       <div className="mt-4 flex flex-col">
         <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -204,6 +228,7 @@ function Table({ columns, data }) {
                                   <SortIcon className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100" />
                                 )}
                             </span>
+                           
                           </div>
                         </th>
                       ))}
@@ -224,11 +249,21 @@ function Table({ columns, data }) {
                               {...cell.getCellProps()}
                               className="px-6 py-4 whitespace-nowrap"
                               role="cell"
-                            >
+                            >{cell.column.Header==="Id"
+                            && <span>
+                              {/* {console.log( cell.value)}claimTask(event, cell.value, cell.row.original.assignee) */}
+                            <button onClick={event => claimTask(event, cell.value, cell.row.original.assignee)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#054ef7" className="w-6 h-6">
+                        <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
+                      </svg></button>
+                      
+                      <div className="text-sm text-gray-400"></div>
+                          </span>}
                               {cell.column.Cell.name === "defaultRenderer"
                                 ? <div className="text-sm text-gray-500">{cell.render('Cell')}</div>
                                 : cell.render('Cell')
                               }
+                              
                             </td>
                           )
                         })}
@@ -305,7 +340,11 @@ function Table({ columns, data }) {
           </div>
         </div>
       </div>
-    </>
+      </div>)}
+      {secCheck && (
+        <CompleteTask taskId={dataId} Assaign={assaign}/>
+      )}
+    </div>
   )
 }
 

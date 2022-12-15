@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Alert(props) {
+  const [show, setShow] = useState(true)
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setShow(false)
+    }, 3000)
+
+    return () => {
+      clearTimeout(timeId)
+    }
+  }, []);
+
+  // If show is false the component will return null and stop here
+  if (!show) {
+    return null;
+  }
   return (
-    <div>
+    <div>{show && (<>
       {props.color=="green" && (
         <div
           class="flex p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
@@ -75,6 +91,7 @@ export default function Alert(props) {
           </div>
         </div>
       )}
+    </>)}
     </div>
   );
 }

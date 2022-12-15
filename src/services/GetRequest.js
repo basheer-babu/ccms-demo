@@ -7,8 +7,7 @@ let getRequest = async (url) => {
     })
       .then((resp) => {
         console.log(resp);
-       return resp.data
-
+       return resp
       })
       .catch(err => {
         console.log(err);
