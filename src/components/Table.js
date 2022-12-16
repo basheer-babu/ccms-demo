@@ -135,6 +135,7 @@ function Table({ columns, data }) {
 
   const [dataId,setDataId]=useState("");
   const [assaign,setAssaign]=useState("");
+  const [name,setName]=useState("");
   const [secCheck,setSecCheck]=useState(false);
   // Use the state and functions returned from useTable to build your UI
   const {
@@ -170,11 +171,12 @@ function Table({ columns, data }) {
 
   // Render the UI for your table
 
-  const claimTask=((e,dataId, Assign)=>{
+  const claimTask=((e,dataId, Assign, name)=>{
     e.preventDefault();
    setDataId(dataId);
    setSecCheck(true);
    setAssaign(Assign);
+   setName(name);
    console.info("dataId",dataId)
    
   });
@@ -252,7 +254,7 @@ function Table({ columns, data }) {
                             >{cell.column.Header==="Id"
                             && <span>
                               {/* {console.log( cell.value)}claimTask(event, cell.value, cell.row.original.assignee) */}
-                            <button onClick={event => claimTask(event, cell.value, cell.row.original.assignee)}>
+                            <button onClick={event => claimTask(event, cell.value, cell.row.original.assignee, cell.row.original.name)}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#054ef7" className="w-6 h-6">
                         <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
                       </svg></button>
@@ -342,7 +344,7 @@ function Table({ columns, data }) {
       </div>
       </div>)}
       {secCheck && (
-        <CompleteTask taskId={dataId} Assaign={assaign}/>
+        <CompleteTask taskId={dataId} Assaign={assaign} name={name}/>
       )}
     </div>
   )

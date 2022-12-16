@@ -19,7 +19,7 @@ const [alertFlag, setAlertFlag] = useState("");
     const claimTask= (async(e)=>{
         e.preventDefault();
         setAlertFlag("");
-      await axios.post('http://localhost:8085/engine-rest/task/'+props.taskId+'/claim', {"userId":"u"})
+      await axios.post('http://localhost:8085/engine-rest/task/'+props.taskId+'/claim', {"userId":"demo"})
        .then((resp) => {
         console.log(resp);
         setAlertFlag("suc");
@@ -74,6 +74,7 @@ const [alertFlag, setAlertFlag] = useState("");
 
         </div>
         <h3 className="text-xl font-semibold">Assaign To: {props.Assaign}</h3>{' '}
+        <h3 className="text-xl font-semibold">Group Name: {props.name}</h3>{' '}
 
         <div className="mt-6">
         
@@ -107,13 +108,14 @@ const [alertFlag, setAlertFlag] = useState("");
             <label for="first_name"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Customer</label>
             <input type="text" value={customer} onChange={e => setcustomer(e.target.value)} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="yes/no" required/>
               </div>
+              {props.name=="checker" ?<>
               <div>
             <label for="first_name"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Checker Comment</label>
             <input type="text" value={checkercomment} onChange={e => setcheckercomment(e.target.value)} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="yes/no" required/>
         </div> <div>
             <label for="first_name"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Accept</label>
             <input type="text" value={accept} onChange={e => setaccept(e.target.value)} id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="yes/no" required/>
-        </div>
+        </div></>:""}
             </div>
             
             
